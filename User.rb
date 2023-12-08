@@ -14,7 +14,23 @@ class User
     def set_balance(symbol, amount)
         eval("@balance #{symbol}= #{amount}")
     end
+    def get_balance
+        puts "#{owner_name} your balance is #{balance}"
+        puts "Please recharge your account. Your balance is #{balance}" if balance <= 0
+    end
 
+    def withdraw(amount)
+        puts "***WARNING*** you're trying to make transaction for an amount which is not available to you." if amount > balance
+        puts "we are here"
+        set_balance("-", amount)
+        get_balance
+    end
+
+    def deposit(amount)
+        puts "You are depositing a total of #{amount}"
+        set_balance("+", amount)
+        get_balance
+    end
     def to_s
         "Account Number: #{@account_number}, Balance: #{@balance}, Owner Name: #{@owner_name}"
     end
