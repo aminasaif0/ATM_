@@ -1,7 +1,7 @@
 class ATM
-    def initialize(balance, limit)
+    def initialize(balance)
         @total_balance = balance
-        @transaction_limit = limit
+        @transaction_limit = 20000
     end
     
     def self.get_balance
