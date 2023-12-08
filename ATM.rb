@@ -8,11 +8,7 @@ class ATM < User
     end
     
     def verified?(pin)
-        if self.pin == pin
-            true
-        else
-            self.freeze
-        end
+        self.pin == pin ? true : self.freeze
     end
     
     def get_balance
