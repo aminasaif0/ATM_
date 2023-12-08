@@ -8,9 +8,9 @@ class Main
     pin = gets.chomp.to_i
     arr = Reader.user_details
     user1 = User.new(arr[INDEX_MAP[:owner_name]],arr[INDEX_MAP[:pin]],arr[INDEX_MAP[:balance]],arr[INDEX_MAP[:acc]])
-    puts "this is line 11"
     atm = ATM.new
-    if(atm.verified?(arr[INDEX_MAP[:pin]]))
+    p 
+    if(user1.verified?(pin))
         puts "Welcome to the Atm #{user1.owner_name}. Your available balance is #{user1.balance}"
         puts " Select an option available in the menu."
         puts " Press 1 to Withdraw from your account."
@@ -24,12 +24,14 @@ class Main
         elsif command == 2
             puts "Please insert an ammount you want to deposit."
             amount = gets.chomp.to_i
-            user1.deposit(ammount)
+            user1.deposit(amount)
         elsif command == 3
             user1.get_balance
         else
             puts "Please choose an valid option"
         end
-        
+    else
+        p "I will freeze"
+        self.freeze
     end
 end

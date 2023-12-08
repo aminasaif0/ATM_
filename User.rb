@@ -1,3 +1,4 @@
+require_relative 'reader'
 class User
     def initialize(owner_name, pin, balance, account_number)
         @owner_name = owner_name
@@ -13,6 +14,11 @@ class User
     def account_number; @account_number end
     def set_balance(symbol, amount)
         eval("@balance #{symbol}= #{amount}")
+        Reader.balance_update(balance)
+    end
+
+    def verified?(pin)
+        self.pin == pin ? true : false
     end
     def get_balance
         puts "#{owner_name} your balance is #{balance}"

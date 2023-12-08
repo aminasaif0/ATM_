@@ -1,7 +1,6 @@
 require_relative 'user'
 
 class Reader
-
   INDEX_MAP = {:acc => 0, :balance => 1, :pin => 2, :owner_name => 3}
     def self.read_user_from_file(file_path)
         lines = File.readlines(file_path).map(&:chomp)
@@ -15,5 +14,19 @@ class Reader
     def self.user_details
         file_path = 'user_data.txt'
         read_user_from_file(file_path)
+    end
+
+    def self.update_balance(file_path, new_balance)
+      user_data = read_user_from_file(file_path)
+      user_data[INDEX_MAP[:balance]] = new_balance.to_f
+  
+      File.open(file_path, 'w') do |file|
+        file.puts(user_data.join("\n"))
+      end
+    end    
+
+    def self.balance_update(new_balance)
+      file_path = 'user_data.txt'
+      update_balance(file_path,new_balance)
     end
 end
