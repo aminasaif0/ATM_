@@ -4,7 +4,6 @@ class ATM < User
     def initialize
         total_balance = 100000
         transaction_limit = 20000
-        @pin = pin
     end
     
     def verified?(pin)
