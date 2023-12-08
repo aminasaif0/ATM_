@@ -4,9 +4,8 @@ class ATM
         @transaction_limit = 20000
     end
     
-    def self.get_balance
-        puts "Total availble balance is #{balance}"
-        puts "Please recharge your account. Your balance is #{balance}" if balance <= 0
+    def get_balance
+        puts "Total availble balance is #{total_balance}"
     end
 
     def total_balance
@@ -16,14 +15,13 @@ class ATM
         @transaction_limit
     end
 
-    def self.set_balance(symbol, amount)
-        eval("@balance #{symbol}= #{amount}")
+    def set_balance(symbol, amount)
+        eval("@total_balance #{symbol}= #{amount}")
     end
 
-    def self.withdraw(amount)
-        puts "***WARNING*** you're trying to make transaction for an amount which is not available to you." if amount > balance
-        set_balance(symbol "-", amount)
-        get_balance
+    def withdraw(amount)
+        puts "***WARNING*** you're trying to make transaction for an amount which is not available to you." if amount > total_balance
+        set_balance("-", amount)
     end
 
     def self.deposit(amount)
