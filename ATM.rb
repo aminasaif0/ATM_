@@ -1,27 +1,30 @@
-require_relative 'user'
-
-class ATM < User
-    def initialize
-        total_balance = 100000
-        transaction_limit = 20000
-    end
-    
-    def verified?(pin)
-        self.pin == pin ? true : self.freeze
+class ATM
+    def initialize(balance)
+        @total_balance = balance
+        @transaction_limit = 20000
     end
     
     def get_balance
-        puts "#{owner_name} your balance is #{balance}"
-        puts "Please recharge your account. Your balance is #{balance}" if balance <= 0
+        puts "Total availble balance is #{total_balance}"
+    end
+
+    def total_balance
+        @total_balance
+    end
+    def transaction_limit
+        @transaction_limit
+    end
+
+    def set_balance(symbol, amount)
+        eval("@total_balance #{symbol}= #{amount}")
     end
 
     def withdraw(amount)
-        puts "***WARNING*** you're trying to make transaction for an amount which is not available to you." if amount > balance
-        set_balance(symbol "-", amount)
-        get_balance
+        puts "***WARNING*** you're trying to make transaction for an amount which is not available to you." if amount > total_balance
+        set_balance("-", amount)
     end
 
-    def deposit(amount)
+    def self.deposit(amount)
         puts "You are depositing a total of #{amount}"
         set_balance(symbol "+", amount)
         get_balance
