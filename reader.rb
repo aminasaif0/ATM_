@@ -29,4 +29,19 @@ class Reader
       file_path = 'user_data.txt'
       update_balance(file_path,new_balance)
     end
+
+    def self.set_new_pin(file_path, new_pin)
+      user_data = read_user_from_file(file_path)
+      user_data[INDEX_MAP[:pin]] = new_pin.to_i
+  
+      File.open(file_path, 'w') do |file|
+        file.puts(user_data.join("\n"))
+      end
+      puts "New pin has been updated"
+    end
+
+    def self.set_pin(new_pin)
+      file_path = 'user_data.txt'
+      set_new_pin(file_path, new_pin)
+    end
 end

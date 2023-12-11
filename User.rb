@@ -12,6 +12,10 @@ class User
     def pin; @pin end
     def balance; @balance end
     def account_number; @account_number end
+
+    def set_pin(new_pin)
+        Reader.set_pin(new_pin)
+    end
     def set_balance(symbol, amount)
         eval("@balance #{symbol}= #{amount}")
         Reader.balance_update(balance)
@@ -27,7 +31,6 @@ class User
 
     def withdraw(amount)
         puts "***WARNING*** you're trying to make transaction for an amount which is not available to you." if amount > balance
-        puts "we are here"
         set_balance("-", amount)
         get_balance
     end
