@@ -8,8 +8,7 @@ class Main
   
   def self.main_menu
     atm = ATM.new(121232)
-    user1 = Reader.user_details
-    puts user1.owner_name
+    
     puts "Choose whom you want to login as;"
     puts "Press 1 if you want to login as Admin"
     puts "Press 2 if you want to login as User"
@@ -19,12 +18,17 @@ class Main
     if user_choice == 1
       admin_login
     elsif user_choice == 2
-      user_login(user1, atm)
+        user1 = get_user
+        user_login(user1, atm)
     else
       puts "Invalid choice option selected"
     end
   end
-
+  def self.get_user
+    puts "Enter User Account Number"
+    acc = gets.chomp.to_i
+    Reader.user_details(acc)
+  end
   def self.admin_login
     puts "What is your pin?"
     admin_pin = gets.chomp.to_i
@@ -43,6 +47,7 @@ class Main
     puts "Select 1 if you want to check ATM Balance"
     puts "Select 2 if you want to add to ATM Balance"
     puts "Select 3 if you want to reset Pin for user"
+    puts "Select 4 if you want to add a new user account"
 
     menu_option = gets.chomp.to_i
     
@@ -54,9 +59,20 @@ class Main
       amount = gets.chomp.to_i
       admin.deposit_to_atm(amount)
     when 3
-      puts "Insert new pin"
+      user1 = get_user
+      puts "Insert New Pin"
       new_pin = gets.chomp.to_i
-      admin.reset_user_pin(new_pin)
+      user1.set_pin(new_pin)
+    when 4
+        puts "Please Enter a valid Name"
+        name = gets.chomp.to_s
+        puts "Please Deposit initial amount."
+        deposit = gets.chomp.to_f
+        puts "Please select a PIN"
+        pin = gets.chomp.to_i
+        ac = Reader.account_count + 1
+        Reader.add_new_user(ac, deposit, pin, name)
+        Reader.update_account_count
     else
       puts "Choose a valid menu option"
     end

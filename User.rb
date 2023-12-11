@@ -16,8 +16,7 @@ class User
     
   def set_pin(new_pin)
     @pin = new_pin
-    Reader.set_pin(account_number, new_pin)
-    puts "New pin has been updated"
+    Reader.set_new_pin(account_number, new_pin)
   end
 
   def set_balance(symbol, amount)
