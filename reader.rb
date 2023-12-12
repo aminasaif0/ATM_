@@ -26,7 +26,8 @@ class Reader
   end
 
   def self.update_balance(account_number, new_balance)
-    user_data = read_all_users_from_file.find { |row| row['account_number'].to_i == account_number }
+    user_data = read_all_users_from_file.find { |row| row if row["account_number"] == account_number }
+    
     CSV.open(USER_FILE_PATH, 'w') do |csv|
       csv << user_data.keys
       csv << user_data.values.map { |value| value == user_data['balance'] ? new_balance : value }

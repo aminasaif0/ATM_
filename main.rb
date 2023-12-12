@@ -27,8 +27,6 @@ class Main
     puts "Enter User Account Number"
     acc = gets.chomp.to_i
     user = User.find_and_initialize(acc)
-    puts user.owner_name
-    user
   end
 
   def self.admin_login

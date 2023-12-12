@@ -28,7 +28,7 @@ class User
 
   def set_balance(symbol, amount)
     eval("@balance #{symbol}= #{amount}")
-    Reader.balance_update(@balance)
+    Reader.update_balance(account_number, @balance)
   end
 
   def verified?(entered_pin)
@@ -55,4 +55,5 @@ class User
   def to_s
     "Account Number: #{account_number}, Balance: #{balance}, Owner Name: #{owner_name}"
   end
+  
 end
