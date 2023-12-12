@@ -1,14 +1,21 @@
 require_relative 'reader'
 
 class User
-  attr_reader :owner_name, :pin, :balance, :account_number
+    attr_reader :account_number, :balance, :pin, :owner_name
 
-  def initialize(owner_name, pin, balance, account_number)
-    @owner_name = owner_name
-    @pin = pin
-    @balance = balance
-    @account_number = account_number
-  end
+    def initialize(data)
+      @account_number = data['account_number']
+      @balance = data['balance'].to_f
+      @pin = data['pin'].to_i
+      @owner_name = data['owner_name']
+    end
+  
+    def self.find_and_initialize(account_number)
+      user_data = Reader.read_all_users_from_file.find { |row| row['account_number'].to_i == account_number }
+      return nil unless user_data
+  
+      new(user_data)
+    end
   def pin; @pin end
   def balance; @balance end
   def account_number; @account_number end

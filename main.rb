@@ -4,8 +4,6 @@ require_relative 'user'
 require_relative 'admin'
 
 class Main
-  INDEX_MAP = { account_number: 0, balance: 1, pin: 2, owner_name: 3 }
-  
   def self.main_menu
     atm = ATM.new(121232)
     
@@ -24,11 +22,15 @@ class Main
       puts "Invalid choice option selected"
     end
   end
+
   def self.get_user
     puts "Enter User Account Number"
     acc = gets.chomp.to_i
-    Reader.user_details(acc)
+    user = User.find_and_initialize(acc)
+    puts user.owner_name
+    user
   end
+
   def self.admin_login
     puts "What is your pin?"
     admin_pin = gets.chomp.to_i
