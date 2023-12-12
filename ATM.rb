@@ -24,9 +24,9 @@ class ATM
         set_balance("-", amount)
     end
 
-    def self.deposit(amount)
+    def deposit(amount)
         puts "You are depositing a total of #{amount}"
-        set_balance(symbol "+", amount)
+        set_balance("+", amount)
         get_balance
     end
 end
